@@ -12,12 +12,10 @@ const PORT = process.env.PORT;
 
 app.use(bodyParser.json());
 
-
-
 // GET ALL TIPS
 app.get('/tips', (req, res) => {
-  Tip.find().then((docs) => {
-    res.send(docs);
+  Tip.find().then((tips) => {
+    res.send({tips});
   }, e => {
     res.status(400).send(e);
   });
