@@ -31,7 +31,7 @@ app.post('/tips', (req, res) => {
 
   tip.save().then((tip) => {
     res.send({tip});
-  }).then(e => {
+  }).catch(e => {
     res.status(400).send(e);
   });
 });

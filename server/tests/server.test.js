@@ -104,3 +104,39 @@ describe('GET /tips/:id', () => {
       .end(done);
   });
 });
+
+describe('DELETE /tips/:id', () => {
+  it('should remove a tip', (done) => {
+    let id = tips[1]._id.toHexString();
+    request(app)
+      .delete(`/tips/${id}`)
+      .expect(200)
+      .expect(res => {
+        expect(res.body.tip._id).toBe(id);
+      })
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        Tip.findById(id).then(tip => {
+          expect(tip).toBeNull();
+          done();
+        }).catch(e => done(e));
+      });
+  });
+
+  it('should return a 404 if tip not found', (done) => {
+    request(app)
+      .delete(`/tips/1`)
+      .expect(404)
+      .end(done);
+  });
+
+  it ('should return a 404 if objectId is invalid', (done) => {
+    let id = new ObjectID;
+    request(app)
+      .delete(`/tips/${id}`)
+      .expect(404)
+      .end(done);
+  });
+});
