@@ -26,7 +26,7 @@ app.get('/tips', (req, res) => {
 app.post('/tips', (req, res) => {
   var tip = new Tip({
     text: req.body.text,
-    tag: req.body.text
+    tag: req.body.tag
   });
 
   tip.save().then((tip) => {
