@@ -31,12 +31,12 @@ app.post('/tips', (req, res) => {
 
   tip.save().then((tip) => {
     res.send({tip});
-  }, e => {
+  }).then(e => {
     res.status(400).send(e);
   });
 });
 
-//GET a specific tip
+//GET a tip by id
 app.get('/tips/:id', (req, res) => {
   let id = req.params.id;
   if (!ObjectID.isValid(id)) {
@@ -47,7 +47,23 @@ app.get('/tips/:id', (req, res) => {
       return res.status(404).send();
     }
     res.send({tip});
-  }).catch((e) => {
+  }).catch(e => {
+    res.status(400).send(e);
+  });
+});
+
+//DELETE a tip by id
+app.delete('/tips/:id', (req, res) => {
+  let id = req.params.id;
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+  Tip.findByIdAndRemove(id).then(tip => {
+    if (!tip) {
+      return res.status(404).send();
+    }
+    res.send({tip});
+  }).catch(e => {
     res.status(400).send(e);
   });
 });
