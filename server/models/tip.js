@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 var TipSchema = new mongoose.Schema({
-  // label: {
-  //   type: String,
-  //   required: true
-  // },
+  tag: {
+    type: String,
+    required: true
+  },
   text: {
     type: String,
     required: true,
@@ -15,14 +15,14 @@ var TipSchema = new mongoose.Schema({
   //   type: mongoose.Schema.Types.ObjectId,
   //   required: true
   // },
-  // numOfReference: {
-  //   type: Number
-  // },
-  // updated: {
-  //   type: Date,
-  //   default: Date.now
-  // },
-  // referAuthors: [mongoose.Schema.Types.ObjectId]
+  numOfReference: {
+    type: Number
+  },
+  updated: {
+    type: Date,
+    default: Date.now
+  },
+  referAuthors: [mongoose.Schema.Types.ObjectId]
 });
 
 var Tip = mongoose.model('Tip', TipSchema);
